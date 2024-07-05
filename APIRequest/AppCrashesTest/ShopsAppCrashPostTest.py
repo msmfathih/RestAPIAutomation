@@ -6,10 +6,10 @@ import requests
 def test_post_api_memory_leak():
     # Send POST requests while monitoring memory usage
     for _ in range(100):
-        payload = {'emirate_id': '4',
-                   'branch_id': '8'
+        payload = {'emirate_id': '8',
+                   'region_id': '134'
                    }
-        response = requests.post("https://testing.zabehaty.uae.zabe7ti.website/api/regions", json=payload)
+        response = requests.post("https://testing.zabehaty.uae.zabe7ti.website/api/branches", json=payload)
         # Process response or perform assertions as needed
         assert response.status_code == 200
 

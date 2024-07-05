@@ -1,5 +1,4 @@
 from asyncio import timeout
-
 import requests
 import random
 import json
@@ -25,7 +24,7 @@ def get_request():
 get_request()
 
 
-#POST request
+
 def post_request():
     url = base_url + "/public/v2/users/"
     print("post url:" + url)
@@ -44,6 +43,8 @@ def post_request():
     assert "name" in json_data
     assert json_data["name"] == "MsmFathih123"
 
+
+#post_request()
     #return user_id
 
 

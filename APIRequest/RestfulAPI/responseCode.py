@@ -7,7 +7,7 @@ def validate_response_code(url):
         response = requests.get(url)
 
         # Check the status code
-        if response.status_code == 200:
+        if response.status_code == 200:fathuh
             print("GET request successful. Status code:", response.status_code)
         else:
             print("GET request failed. Status code:", response.status_code)

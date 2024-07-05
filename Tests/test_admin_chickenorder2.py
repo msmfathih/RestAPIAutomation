@@ -37,10 +37,11 @@ class TestAdminLogin():
     def test_enter_credentials(self):
         enter_username = driver.find_element(By.NAME, LoginPageLocators.USERNAME_NAME)
         enter_username.send_keys(userCredentials["username"])
-        enter_password = driver.find_element(By.XPATH, LoginPageLocators.PASSWORD_XPATH)
+        enter_password = driver.fintest_admin_chickenorder2.pyd_element(By.XPATH, LoginPageLocators.PASSWORD_XPATH)
         enter_password.send_keys(userCredentials["password"])
         click_login_btn = driver.find_element(By.XPATH, LoginPageLocators.LOGIN_BUTTON_XPATH)
         click_login_btn.click()
+
         time.sleep(3)
         driver.find_element(By.XPATH, DashboardPageLocators.LANGUAGE_DROPDOWN_XPATH).click()
         driver.find_element(By.XPATH, DashboardPageLocators.SELECT_ENGLISH_XPATH).click()
@@ -121,6 +122,7 @@ class TestAdminLogin():
 
     #@pytest.mark.skip(reason="no way of currently testing this")
     #@pytest.mark.xfail(run=False) make the TC fails
+
     def test_order_details(self):
         enter_category_details = driver.find_element(By.NAME, DashboardPageLocators.ENTER_CATOGORY_DETAILS_NAME)
         sel = Select(enter_category_details)
@@ -136,5 +138,7 @@ class TestAdminLogin():
         enter_quantity.send_keys("1")
         time.sleep(3)
 
-        # submit_order = driver.find_element(By.NAME, DashboardPageLocators.SAVE_NAME)
-        # submit_order.click()
+        submit_order = driver.find_element(By.NAME, DashboardPageLocators.SAVE_NAME)
+        submit_order.click()
+
+

@@ -8,7 +8,7 @@ import gc
 def call():
     # call the get with a url,here I used google.com
     # get method returns a response object
-    response = requests.get('https://testing.zabehaty.uae.zabe7ti.website/api/regions)
+    response = requests.get('https://testing.zabehaty.uae.zabe7ti.website/api/regions')
 
     # print the status code of response
     print("Status code", response.status_code)

@@ -1,14 +1,9 @@
 import time
-from telnetlib import EC
-import pytest
 from selenium import webdriver
-from selenium.webdriver.common import keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.selenium_manager import SeleniumManager
 from selenium.webdriver import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
 
 
 class TestAdminLogin():
@@ -49,7 +44,7 @@ class TestAdminLogin():
         driver.find_element(By.XPATH, "//div[9]//div[1]//a[1]").click()
         driver.find_element(By.XPATH, "//a[@class='btn btn-info']").click() #create button for new order
         time.sleep(10)
-        driver.find_element(By.XPATH, "/html/body/div[3]/div[3]/div[2]/div[1]/div/form/div[1]/div[1]/span/span[1]/span/span[2]/b").click()
+        driver.find_element(By.XPATH, "/html/body/div[3]/div[4]/div[2]/div[1]/div/form/div[1]/div[1]/span/span[1]/span/span[2]/b").click()
         time.sleep(3)
         driver.find_element(By.XPATH, "//input[@role='searchbox']").send_keys("chic")
         time.sleep(3)
@@ -79,9 +74,9 @@ class TestAdminLogin():
         sel.select_by_index(5)
         time.sleep(3)
 
-        driver.find_element(By.XPATH, "//input[@placeholder='Search Users...']").send_keys("mohamed fathih")
+        driver.find_element(By.XPATH, "//input[@placeholder='Search Users...']").send_keys("ashika mrf")
         time.sleep(3)
-        driver.find_element(By.XPATH, "//a[contains(text(),'mohamed')]").click()
+        driver.find_element(By.XPATH, "//a[contains(text(),'ashika')]").click()
         time.sleep(3)
 
         select_user_address = driver.find_element(By.NAME, "address_id")
