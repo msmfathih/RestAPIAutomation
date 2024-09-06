@@ -1,0 +1,15 @@
+{
+	"id": "32dfa772-de73-4c2a-abd1-aef31ed4e2b9",
+	"name": "url",
+	"values": [
+		{
+			"key": "url",
+			"value": "https://royalfoodgallery.com/api",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-08-31T17:11:52.025Z",
+	"_postman_exported_using": "Postman/11.10.1"
+}
