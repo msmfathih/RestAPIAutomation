@@ -110,7 +110,6 @@ def test_tracking_details():
     assert tracking_details["total_pieces"] == 90
     assert tracking_details["weight"] == "900K"
 
-
 def test_messages():
 
     messages = response_payload["messages"]
