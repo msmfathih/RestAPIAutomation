@@ -1,6 +1,5 @@
-import requests
+import pytest
 
-# Sample JSON payload (Replace with actual API response)
 payload = {
     "data": {
         "orderResponse": {
@@ -11,7 +10,7 @@ payload = {
                             "productInfo": {
                                 "documentDetails": {
                                     "documentInfo": {
-                                          "documentNumber": "51212685",
+                                        "documentNumber": "51212685",
                                         "documentType": "AWB"
                                     },
                                     "cargoInfo": {
@@ -44,23 +43,25 @@ payload = {
     ]
 }
 
-# Extracting required values
-try:
+
+def test_order_details():
+
     order_item = payload["data"]["orderResponse"]["order"]["orderItems"]["orderItem"][0]
+
     document_info = order_item["productInfo"]["documentDetails"]["documentInfo"]
+
     quantity_info = order_item["productInfo"]["documentDetails"]["cargoInfo"]["quantityInfo"][0]
+
     references = order_item["reference"]
+
     order_number = payload["data"]["orderResponse"]["order"]["orderNumber"]
+
     message = payload["messages"][0]["message"]
 
-    # Validating and printing required fields
-    print("documentNumber:", document_info.get("documentNumber", "Not Found"))
-    print("documentType:", document_info.get("documentType", "Not Found"))
-    print("Piece:", quantity_info.get("piece", "Not Found"))
-    print("bookingReferenceNumber:", references.get("bookingReferenceNumber", "Not Found"))
-    print("jobReferenceNumber:", references.get("jobReferenceNumber", "Not Found"))
-    print("orderNumber:", order_number)
-    print("message:", message)
-
-except KeyError as e:
-    print(f"Missing key in payload: {e}")
+    assert document_info.get("documentNumber") == "51212685"
+    assert document_info.get("documentType") == "AWB"
+    assert quantity_info.get("piece") == 1000
+    assert references.get("bookingReferenceNumber") == "50578770"
+    assert references.get("jobReferenceNumber") == "49855437"
+    assert order_number == "1740549238745"
+    assert message == "Success"
