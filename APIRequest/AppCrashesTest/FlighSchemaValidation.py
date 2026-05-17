@@ -1,7 +1,7 @@
-import jsonschema
+import pytest
 from jsonschema import validate
 
-# Define the schema
+
 schema = {
     "type": "object",
     "properties": {
@@ -20,8 +20,18 @@ schema = {
                         "per_kg_price": {"type": "string"},
                         "total_price": {"type": "string"}
                     },
-                    "required": ["arrival_time", "departure_time", "eta", "etd", "flight_name", "flight_no", "per_kg_price", "total_price"]
+                    "required": [
+                        "arrival_time",
+                        "departure_time",
+                        "eta",
+                        "etd",
+                        "flight_name",
+                        "flight_no",
+                        "per_kg_price",
+                        "total_price"
+                    ]
                 },
+
                 "milestone": {
                     "type": "array",
                     "items": {
@@ -35,12 +45,7 @@ schema = {
                                 },
                                 "required": ["code", "description"]
                             },
-                            "dimension": {
-                                "type": "array"
-                            },
-                            "special_handling": {
-                                "type": "array"
-                            },
+
                             "station": {
                                 "type": "object",
                                 "properties": {
@@ -48,6 +53,7 @@ schema = {
                                 },
                                 "required": ["code"]
                             },
+
                             "status_data": {
                                 "type": "object",
                                 "properties": {
@@ -75,6 +81,7 @@ schema = {
                                 },
                                 "required": ["quantity"]
                             },
+
                             "status_date": {
                                 "type": "object",
                                 "properties": {
@@ -82,11 +89,22 @@ schema = {
                                 },
                                 "required": ["achieved"]
                             },
-                            "status_milestone": {"type": "boolean"}
+
+                            "status_milestone": {
+                                "type": "boolean"
+                            }
                         },
-                        "required": ["code", "station", "status_data", "status_date", "status_milestone"]
+
+                        "required": [
+                            "code",
+                            "station",
+                            "status_data",
+                            "status_date",
+                            "status_milestone"
+                        ]
                     }
                 },
+
                 "tracking_details": {
                     "type": "object",
                     "properties": {
@@ -101,11 +119,29 @@ schema = {
                         "volume": {"type": "string"},
                         "weight": {"type": "string"}
                     },
-                    "required": ["awb", "destination_code", "destination_name", "origin_code", "origin_name", "product", "status", "total_pieces", "volume", "weight"]
+
+                    "required": [
+                        "awb",
+                        "destination_code",
+                        "destination_name",
+                        "origin_code",
+                        "origin_name",
+                        "product",
+                        "status",
+                        "total_pieces",
+                        "volume",
+                        "weight"
+                    ]
                 }
             },
-            "required": ["flight_details", "milestone", "tracking_details"]
+
+            "required": [
+                "flight_details",
+                "milestone",
+                "tracking_details"
+            ]
         },
+
         "messages": {
             "type": "array",
             "items": {
@@ -115,14 +151,20 @@ schema = {
                     "message": {"type": "string"},
                     "type": {"type": "string"}
                 },
-                "required": ["code", "message", "type"]
+
+                "required": [
+                    "code",
+                    "message",
+                    "type"
+                ]
             }
         }
     },
+
     "required": ["data", "messages"]
 }
 
-# Define the response data (as provided)
+
 response_data = {
     "data": {
         "flight_details": {
@@ -135,17 +177,18 @@ response_data = {
             "per_kg_price": "",
             "total_price": ""
         },
+
         "milestone": [
             {
                 "code": {
                     "code": "BKD",
-                    "description": "Booked on Flight EK-0123, 22 Feb 2025, DXB-IST"
+                    "description": "Booked on Flight EK-0123"
                 },
-                "dimension": [],
-                "special_handling": [],
+
                 "station": {
                     "code": "FRN"
                 },
+
                 "status_data": {
                     "quantity": {
                         "piece": 90,
@@ -157,12 +200,15 @@ response_data = {
                         }
                     }
                 },
+
                 "status_date": {
                     "achieved": "2025-02-18 19:58:05"
                 },
+
                 "status_milestone": True
             }
         ],
+
         "tracking_details": {
             "awb": "176-51212825",
             "destination_code": "IST",
@@ -176,6 +222,7 @@ response_data = {
             "weight": "900K"
         }
     },
+
     "messages": [
         {
             "code": "DT-INF-1101",
@@ -185,9 +232,6 @@ response_data = {
     ]
 }
 
-# Validate the response data
-try:
+
+def test_schema_validation():
     validate(instance=response_data, schema=schema)
-    print("Response is valid")
-except jsonschema.exceptions.ValidationError as e:
-    print(f"Response is invalid: {e.message}")
