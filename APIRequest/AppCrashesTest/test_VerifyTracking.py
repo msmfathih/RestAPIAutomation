@@ -1,4 +1,4 @@
-import json
+import pytest
 
 # Sample response (assume it's loaded from an API or file)
 response = {
@@ -87,34 +87,36 @@ response = {
     ]
 }
 
-def assert_and_print(condition, description):
-    try:
-        assert condition
-        print(f"✅ Assertion passed: {description}")
-    except AssertionError:
-        print(f"❌ Assertion failed: {description}")
 
-# Assertions
+def test_api_response_message():
+    assert response['messages'][0]['message'] == "Successfully fetched data"
 
-assert_and_print(response['messages'][0]['message'] == "Successfully fetched data", "API response message is correct")
 
-fd = response['data']['flight_details']
-assert_and_print(fd['flight_no'] == "EK-4010", "Flight number is EK-4010")
-assert_and_print(fd['flight_name'] == "EK", "Flight name is EK")
-assert_and_print(fd['arrival_time'] == "2025-04-09 13:15:00", "Arrival time matches")
-assert_and_print(fd['departure_time'] == "2025-04-07 07:30:00", "Departure time matches")
-assert_and_print(fd['no_of_stops'] == 1, "Number of stops is 1")
+def test_flight_details():
+    fd = response['data']['flight_details']
 
-tracking = response['data']['tracking_details']
-assert_and_print(tracking['awb'] == "176-38528976", "AWB number is correct")
-assert_and_print(tracking['destination_code'] == "AMS", "Destination code is AMS")
-assert_and_print(tracking['origin_code'] == "DWC", "Origin code is DWC")
-assert_and_print(tracking['weight'] == "10KG", "Weight is 10KG")
-assert_and_print(tracking['total_pieces'] == 1, "Total pieces is 1")
+    assert fd['flight_no'] == "EK-4010"
+    assert fd['flight_name'] == "EK"
+    assert fd['arrival_time'] == "2025-04-09 13:15:00"
+    assert fd['departure_time'] == "2025-04-07 07:30:00"
+    assert fd['no_of_stops'] == 1
 
-milestones = response['data']['milestone']
-assert_and_print(milestones[0]['code']['code'] == "BKD", "First milestone code is BKD")
-assert_and_print(milestones[0]['status_data']['quantity']['piece'] == 1, "First milestone piece count is 1")
-assert_and_print(milestones[1]['status_data']['quantity']['weight']['value'] == 10, "Second milestone weight is 10 KG")
-assert_and_print(milestones[0]['status_milestone'] is True, "First milestone status_milestone is True")
-assert_and_print(milestones[1]['status_milestone'] == "", "Second milestone status_milestone is empty")
+
+def test_tracking_details():
+    tracking = response['data']['tracking_details']
+
+    assert tracking['awb'] == "176-38528976"
+    assert tracking['destination_code'] == "AMS"
+    assert tracking['origin_code'] == "DWC"
+    assert tracking['weight'] == "10KG"
+    assert tracking['total_pieces'] == 1
+
+
+def test_milestone_details():
+    milestones = response['data']['milestone']
+
+    assert milestones[0]['code']['code'] == "BKD"
+    assert milestones[0]['status_data']['quantity']['piece'] == 1
+    assert milestones[1]['status_data']['quantity']['weight']['value'] == 10
+    assert milestones[0]['status_milestone'] is True
+    assert milestones[1]['status_milestone'] == ""
